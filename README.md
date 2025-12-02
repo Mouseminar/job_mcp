@@ -203,3 +203,44 @@ result = search_jobs(
 ## License
 
 MIT License
+
+## 在无外网/云服务器（如阿里云容器）上部署 Selenium 说明
+
+如果运行环境无法访问外网，Selenium 的 SeleniumManager 会无法自动下载 ChromeDriver，从而报错 `Unable to obtain driver for chrome`。常见解决方案：
+
+- **方法 A（推荐）**：在镜像/服务器上预安装 Chrome 或 Chromium，并把对应版本的 chromedriver 放到一个可访问路径，然后通过环境变量指定路径：
+  - 将 Chrome 或 Chromium 可执行文件路径设置到 `CHROME_BINARY`（例如 `/usr/bin/chromium-browser`）。
+  - 将 chromedriver 二进制路径设置到 `CHROMEDRIVER_PATH`（例如 `/opt/chromedriver`）。
+  - 运行容器/进程时传入环境变量，例如（PowerShell）:
+
+```powershell
+$env:CHROME_BINARY = 'C:\Program Files\Google\Chrome\Application\chrome.exe'
+$env:CHROMEDRIVER_PATH = 'C:\tools\chromedriver.exe'
+python job_crawler_selenium.py
+```
+
+  在 Linux 容器中（Dockerfile 示例片段）:
+
+```Dockerfile
+RUN apt-get update && apt-get install -y wget unzip \
+    chromium-browser
+# 把预先下载好的 chromedriver 放到 /usr/local/bin
+COPY chromedriver /usr/local/bin/chromedriver
+ENV CHROME_BINARY=/usr/bin/chromium-browser \
+    CHROMEDRIVER_PATH=/usr/local/bin/chromedriver
+```
+
+- **方法 B**：在镜像构建阶段使用工具（如 `webdriver-manager` 或官方 chromedriver 二进制）下载好对应版本并放入镜像中，然后同样通过 `CHROMEDRIVER_PATH` 指定。
+
+- **方法 C（不推荐在无网络时）**：依赖 SeleniumManager 自动下载，这需要容器能够访问 `https://googlechromelabs.github.io`，若环境被限制则会失败。
+
+调试验证命令（在服务器上执行）：
+
+```bash
+# 检查 Chrome/Chromium
+which chromium-browser || which google-chrome || echo "chrome not found"
+# 检查 chromedriver
+/usr/local/bin/chromedriver --version || chromedriver --version
+```
+
+如果遇到问题，可以把 Chromedriver 放进同一个目录并通过 `CHROMEDRIVER_PATH` 指定路径，或者把 Chrome 路径通过 `CHROME_BINARY` 指定。程序会优先使用这些环境变量来启动浏览器，从而避免 SeleniumManager 自动下载失败的情况。

@@ -196,7 +196,27 @@ class SeleniumCrawler:
         # 设置User-Agent
         options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36")
         
-        self.driver = webdriver.Chrome(options=options)
+        # 优先使用环境变量指定的 Chrome 可执行文件和 Chromedriver 路径，避免 SeleniumManager 网络下载失败
+        chrome_binary = os.environ.get("CHROME_BINARY") or os.environ.get("GOOGLE_CHROME_SHIM")
+        chromedriver_path = os.environ.get("CHROMEDRIVER_PATH")
+
+        if chrome_binary:
+            try:
+                options.binary_location = chrome_binary
+            except Exception:
+                pass
+
+        if chromedriver_path:
+            try:
+                service = Service(executable_path=chromedriver_path)
+                self.driver = webdriver.Chrome(service=service, options=options)
+            except Exception as e:
+                # 回退到无 service 的实例化（可能触发 SeleniumManager）
+                print(f"使用 CHROMEDRIVER_PATH 启动 chromedriver 失败: {e}")
+                self.driver = webdriver.Chrome(options=options)
+        else:
+            # 未提供 chromedriver 路径，使用 selenium 内置的查找/下载（在无网络环境可能失败）
+            self.driver = webdriver.Chrome(options=options)
         
         # 设置页面加载超时
         self.driver.set_page_load_timeout(30)
@@ -332,7 +352,25 @@ class BossZhipinSeleniumCrawler(SeleniumCrawler):
         options.add_argument("--disable-logging")
         options.add_argument("--log-level=3")
         
-        self.driver = webdriver.Chrome(options=options)
+        # 优先使用环境变量指定的 Chrome 可执行文件和 Chromedriver 路径
+        chrome_binary = os.environ.get("CHROME_BINARY") or os.environ.get("GOOGLE_CHROME_SHIM")
+        chromedriver_path = os.environ.get("CHROMEDRIVER_PATH")
+
+        if chrome_binary:
+            try:
+                options.binary_location = chrome_binary
+            except Exception:
+                pass
+
+        if chromedriver_path:
+            try:
+                service = Service(executable_path=chromedriver_path)
+                self.driver = webdriver.Chrome(service=service, options=options)
+            except Exception as e:
+                print(f"使用 CHROMEDRIVER_PATH 启动 chromedriver 失败: {e}")
+                self.driver = webdriver.Chrome(options=options)
+        else:
+            self.driver = webdriver.Chrome(options=options)
         self.driver.set_page_load_timeout(20)
         
         # 执行CDP命令隐藏WebDriver特征
