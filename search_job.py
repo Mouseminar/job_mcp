@@ -7,7 +7,7 @@ import json
 import argparse
 import time
 import os
-from job_crawler_selenium import search_jobs_selenium, load_config, RICH_AVAILABLE
+from job_crawler_selenium import search_jobs_selenium as search_jobs, load_config, RICH_AVAILABLE
 
 if RICH_AVAILABLE:
     from rich.console import Console
@@ -297,7 +297,7 @@ def main():
         ) as progress:
             task = progress.add_task(f"[cyan]正在爬取 {len(args.sources)} 个数据源...", total=None)
             
-            result = search_jobs_selenium(
+            result = search_jobs(
                 position=args.position,
                 city=args.city,
                 experience=args.experience,
@@ -313,7 +313,7 @@ def main():
                 show_progress=False  # 内部不显示进度
             )
     else:
-        result = search_jobs_selenium(
+        result = search_jobs(
             position=args.position,
             city=args.city,
             experience=args.experience,
