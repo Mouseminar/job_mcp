@@ -1,0 +1,25 @@
+2025-12-02 20:19:04,105 - __main__ - WARNING - 无法导入 search_job.search_jobs: cannot import name 'search_jobs' from 'search_job' (d:\Desktop\MCP\job_mcp\search_job.py)
+2025-12-02 20:19:04,123 - __main__ - INFO - 启动 Job/Intern MCP 服务器
+2025-12-02 20:20:05,435 - __main__ - WARNING - 无法导入 search_job.search_jobs: cannot import name 'search_jobs' from 'search_job' (d:\Desktop\MCP\job_mcp\search_job.py)
+2025-12-02 20:20:05,445 - __main__ - INFO - 启动 Job/Intern MCP 服务器
+2025-12-02 20:21:01,445 - __main__ - WARNING - 无法导入 search_job.search_jobs: cannot import name 'search_jobs' from 'search_job' (d:\Desktop\MCP\job_mcp\search_job.py)
+2025-12-02 20:21:01,459 - __main__ - INFO - 启动 Job/Intern MCP 服务器
+2025-12-02 20:21:28,790 - mcp.server.lowlevel.server - INFO - Processing request of type ListToolsRequest
+2025-12-02 20:21:48,796 - mcp.server.lowlevel.server - INFO - Processing request of type PingRequest
+2025-12-02 20:21:59,170 - mcp.server.lowlevel.server - INFO - Processing request of type CallToolRequest
+2025-12-02 20:22:08,797 - mcp.server.lowlevel.server - INFO - Processing request of type PingRequest
+2025-12-02 20:22:28,799 - mcp.server.lowlevel.server - INFO - Processing request of type PingRequest
+2025-12-02 20:22:48,796 - mcp.server.lowlevel.server - INFO - Processing request of type PingRequest
+2025-12-02 20:23:06,936 - mcp.server.lowlevel.server - INFO - Processing request of type CallToolRequest
+2025-12-02 20:23:08,792 - mcp.server.lowlevel.server - INFO - Processing request of type PingRequest
+2025-12-02 20:23:28,793 - mcp.server.lowlevel.server - INFO - Processing request of type PingRequest
+2025-12-02 20:23:48,799 - mcp.server.lowlevel.server - INFO - Processing request of type PingRequest
+2025-12-02 20:24:08,791 - mcp.server.lowlevel.server - INFO - Processing request of type PingRequest
+2025-12-02 20:24:28,798 - mcp.server.lowlevel.server - INFO - Processing request of type PingRequest
+2025-12-02 20:24:48,804 - mcp.server.lowlevel.server - INFO - Processing request of type PingRequest
+2025-12-02 20:25:08,791 - mcp.server.lowlevel.server - INFO - Processing request of type PingRequest
+2025-12-02 20:25:28,800 - mcp.server.lowlevel.server - INFO - Processing request of type PingRequest
+2025-12-02 20:25:48,795 - mcp.server.lowlevel.server - INFO - Processing request of type PingRequest
+2025-12-02 20:26:08,797 - mcp.server.lowlevel.server - INFO - Processing request of type PingRequest
+2025-12-02 20:26:28,793 - mcp.server.lowlevel.server - INFO - Processing request of type PingRequest
+2025-12-02 20:26:48,796 - mcp.server.lowlevel.server - INFO - Processing request of type PingRequest

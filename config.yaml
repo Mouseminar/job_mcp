@@ -1,0 +1,74 @@
+# 招聘爬虫配置文件
+
+# 默认搜索参数
+search:
+  position: ""          # 岗位名称（命令行必填）
+  city: ""              # 意向城市
+  experience: ""        # 工作经验
+  education: ""         # 学历要求
+  salary: ""            # 期望薪资
+  page: 1               # 页码
+  page_size: 20         # 每页数量
+
+# 数据源配置
+sources:
+  enabled:              # 启用的数据源
+    - boss
+    - liepin
+    - zhilian
+    # - job51           # 取消注释启用前程无忧（不太稳定）
+
+# 浏览器配置
+browser:
+  headless: true        # 无头模式（不显示浏览器窗口）
+  page_load_timeout: 15 # 页面加载超时时间（秒）
+  
+# 爬取配置
+crawl:
+  mode: "parallel"      # 爬取模式: parallel=多线程并行, shared=单浏览器串行
+  
+  # 等待时间配置（秒）
+  delay:
+    min: 1.5            # 页面加载后最小等待时间
+    max: 2.5            # 页面加载后最大等待时间
+  
+  # WebDriverWait 超时时间（秒）
+  wait_timeout:
+    boss: 5
+    liepin: 4
+    zhilian: 4
+    job51: 5
+
+# 输出配置
+output:
+  file: "jobs_result.json"  # 默认输出文件名
+  save_by_default: false    # 是否默认保存到文件
+
+# 城市代码映射（Boss直聘专用）
+city_codes:
+  全国: "100010000"
+  北京: "101010100"
+  上海: "101020100"
+  广州: "101280100"
+  深圳: "101280600"
+  杭州: "101210100"
+  成都: "101270100"
+  南京: "101190100"
+  武汉: "101200100"
+  西安: "101110100"
+  苏州: "101190400"
+  天津: "101030100"
+  重庆: "101040100"
+  郑州: "101180100"
+  长沙: "101250100"
+  东莞: "101281600"
+  青岛: "101120200"
+  沈阳: "101070100"
+  宁波: "101210400"
+  昆明: "101290100"
+
+# 显示配置
+display:
+  show_progress: true     # 显示进度条
+  max_display_jobs: 10    # 最多显示多少条职位
+  color_output: true      # 彩色输出
